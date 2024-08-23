@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import pkg from 'colors';
 import MusicRoutes from './Routes/MusicRoutes.js';
+import UserRoutes from './Routes/UserRoutes.js';
 import connectToDB from './Utilities/DB.js';
 
 
@@ -25,6 +26,7 @@ service.use(
   service.use(express.json());
 
 service.use('/api/v1/karaoke', MusicRoutes);
+service.use('/api/v1/users', UserRoutes);
 
 service.listen(PORT, (req, res) => {
     console.log(`Server is Running at http://localhost:${PORT}`.yellow.bold);
