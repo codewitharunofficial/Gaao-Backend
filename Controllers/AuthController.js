@@ -2,9 +2,8 @@ import UserModel from "../Models/UserModel.js";
 
 export const registerNewUser = async (req, res) => {
     try {
-        const {user} = req.body;
-        if(user){
-            const {name, profilePic, email} = user;
+        const {name, email, picture} = req.body;
+        if(email && name && picture){
 
             const ifExist = await UserModel.findOne({email: email});
 
@@ -14,8 +13,7 @@ export const registerNewUser = async (req, res) => {
                     message: "An Account with this email already exists",
                 })
             } else{
-
-                const user = new UserModel({name, profilePic, email});
+                const user = new UserModel({name, email, profilePic: picture});
                 await user.save();
     
                 if(user){
@@ -28,7 +26,7 @@ export const registerNewUser = async (req, res) => {
             }
 
         } else {
-            throw new Error("Payload Error Or Unable to Destructure User-Payload");
+            throw new Error("All Fields are required");
         }
     } catch (error) {
         console.log(error);
@@ -43,6 +41,7 @@ export const registerNewUser = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const {email} = req.body;
+        console.log(email);
 
         if(!email){
             throw new Error("Email is required");

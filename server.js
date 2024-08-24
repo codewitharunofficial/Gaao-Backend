@@ -24,6 +24,7 @@ service.use(
     })
   );
   service.use(express.json());
+  service.use(express.urlencoded({extended: true}));
 
 service.use('/api/v1/karaoke', MusicRoutes);
 service.use('/api/v1/users', UserRoutes);
