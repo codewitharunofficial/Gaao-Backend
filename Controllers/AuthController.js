@@ -2,8 +2,8 @@ import UserModel from "../Models/UserModel.js";
 
 export const registerNewUser = async (req, res) => {
     try {
-        const {name, email, picture} = req.body;
-        if(email && name && picture){
+        const {name, email, photoUrl} = req.body;
+        if(email && name && photoUrl){
 
             const ifExist = await UserModel.findOne({email: email});
 
@@ -13,7 +13,7 @@ export const registerNewUser = async (req, res) => {
                     message: "An Account with this email already exists",
                 })
             } else{
-                const user = new UserModel({name, email, profilePic: picture});
+                const user = new UserModel({name, email, profilePic: photoUrl});
                 await user.save();
     
                 if(user){
